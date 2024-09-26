@@ -30,6 +30,10 @@ const showModalTeleport = ref(false)
 </script>
 
 <template>
+  <Button @click="isolate = !isolate" class="z-40 fixed top-1 left-1">
+    Isolate teasers:
+    <span :class="isolate ? 'text-green-500' : 'text-red-600'">{{ isolate }}</span>
+  </Button>
   <header class="bg-white z-10 fixed top-0 w-full">
     <div class="relative flex gap-4 border-b w-full justify-center">
       <div v-for="item in menuItems" :key="item.name" class="p-4 relative group">
@@ -52,10 +56,6 @@ const showModalTeleport = ref(false)
   <main class="grid place-content-center min-h-dvh">
     <div class="flex flex-col gap-4">
       <div class="flex justify-center gap-4">
-        <Button @click="isolate = !isolate">
-          Isolate teasers:
-          <span :class="isolate ? 'text-green-500' : 'text-red-600'">{{ isolate }}</span>
-        </Button>
         <Button @click="showModalInline = true">Open inline modal</Button>
         <Button @click="showModalTeleport = true">Open teleport modal</Button>
       </div>
@@ -81,10 +81,12 @@ const showModalTeleport = ref(false)
       </div>
     </div>
 
-    <Modal v-if="showModalInline" @close-modal="showModalInline = false"> Inline modal z-10 </Modal>
+    <Modal v-if="showModalInline" @close-modal="showModalInline = false">
+      Inline modal (z-20)
+    </Modal>
     <Teleport to="body">
       <Modal v-if="showModalTeleport" @close-modal="showModalTeleport = false">
-        Teleported modal z-20
+        Modal that uses Teleport (z-20)
       </Modal>
     </Teleport>
   </main>
